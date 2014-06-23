@@ -1,6 +1,8 @@
 // YOUR CODE HERE:
 var app = {
-  server: 'https://api.parse.com/1/classes/chatterbox',
+
+  server: 'http://127.0.0.1:3000',
+  // server: 'https://api.parse.com/1/classes/chatterbox',
   roomnames: {},
   usernames: {},
   friends: {},
@@ -73,7 +75,6 @@ app.fetch = function() {
     contentType: 'application/json',
     dataType: 'JSON',
     data: {
-      order: '-createdAt'
     },
     success: this._parseMessages,
     error: function(data) {
