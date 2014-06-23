@@ -6,8 +6,7 @@
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
 exports.handleRequest = function(request, response) {
-  console.log('request: ' + request);
-  console.log('response: ' + response);
+
   /* the 'request' argument comes from nodes http module. It includes info about the
   request - such as what URL the browser is requesting. */
 
