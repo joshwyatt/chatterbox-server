@@ -7,12 +7,8 @@
 
 
 var chats;
-var stringifiedChats;
 var url = require("url");
-var getChats = function(){
-  chats = require("chats/chats.js").chats;
-  console.log("inside getChats: " + chats.results.length);
-};
+chats = require("chats/chats.js").chats;
 
 exports.handleRequest = function(request, response) {
 
@@ -30,21 +26,15 @@ exports.handleRequest = function(request, response) {
     response.writeHead(statusCode, headers);
     response.end(JSON.stringify({}));
   }else if( request.method === "GET" ){
-    getChats();
     response.writeHead(statusCode, headers);
     response.write(JSON.stringify(chats));
     response.end();
   }else if( request.method === "POST" ){
     request.on('data', function(chat){
       chat = JSON.parse(chat);
-      console.log("chats1: " + chats.results[0].text);
-      console.log("chats length before: " + chats.results.length);
       chats.addChat(chat);
-      console.log("chats length after" + chats.results.length);
     });
-    console.log(request.read());
     response.writeHead(statusCode, headers);
-    console.log("POSTING UP");
     response.end(JSON.stringify({}));
   }
 

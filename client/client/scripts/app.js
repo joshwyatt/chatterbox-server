@@ -79,10 +79,6 @@ app.fetch = function() {
     data: {
     },
     success: this._parseMessages,
-    // success: function(data){
-    //   console.log('in success');
-    //   console.dir(data);
-    // },
     error: function(data) {
       console.log('fetch failed');
       console.dir(data);

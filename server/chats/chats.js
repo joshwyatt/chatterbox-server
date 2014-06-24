@@ -1,7 +1,5 @@
-// var requestHandle = require("request-handler.js");
-// var server = require("basic-server.js").server;
 
-exports.chats = {
+exports.chats = chats = {
   results: [{
     roomname: 'the one and only',
     objectId: 1,
@@ -11,5 +9,9 @@ exports.chats = {
 
   addChat: function(newChat){
     this.results.push(newChat);
+  },
+
+  getChats: function(){
+    return this.results;
   }
 };
