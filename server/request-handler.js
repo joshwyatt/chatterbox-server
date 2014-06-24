@@ -5,6 +5,7 @@
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 var results = [];
+var objectId = 0;
 
 exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -25,6 +26,9 @@ exports.handleRequest = function(request, response) {
 
     request.on('end', function() {
         var data = JSON.parse(body);
+        data['objectId'] = objectId++;
+        data['createdAt'] = new Date();
+        console.log(data);
         results.push(data);
         console.log(results);
     });
