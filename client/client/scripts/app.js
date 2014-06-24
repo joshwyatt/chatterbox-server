@@ -1,7 +1,7 @@
 // YOUR CODE HERE:
 var app = {
 
-  server: 'http://127.0.0.1:3000',
+  server: 'http://127.0.0.1:3000/chats.js',
   // server: 'https://api.parse.com/1/classes/chatterbox',
   roomnames: {},
   usernames: {},
@@ -51,7 +51,7 @@ app._parseMessages = function(data) {
   var i = -1;
   for (i = 0; i < incomingMessages.length; i++) {
     var message = incomingMessages[i];
-    stringifiedMessage =JSON.stringify(message);
+    stringifiedMessage = JSON.stringify(message);
     if (app.lastObjKey === stringifiedMessage) {
       break;
     }
@@ -70,7 +70,7 @@ app._parseMessages = function(data) {
 
 app.fetch = function() {
   $.ajax({
-    url: this.server + '/test.html',
+    url: this.server,
     type: 'GET',
     contentType: 'application/json',
     dataType: 'JSON',
