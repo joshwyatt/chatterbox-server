@@ -1,6 +1,5 @@
-var requestHandle = require("request-handler.js");
-var server = require("basic-server.js").server;
-console.log('looking at server inside chats.js: ' + server);
+// var requestHandle = require("request-handler.js");
+// var server = require("basic-server.js").server;
 
 exports.chats = {
   results: [{

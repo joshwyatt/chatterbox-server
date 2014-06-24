@@ -1,7 +1,7 @@
 // YOUR CODE HERE:
 var app = {
 
-  server: 'http://127.0.0.1:3000/chats.js',
+  server: 'http://127.0.0.1:3000/basic-server.js',
   // server: 'https://api.parse.com/1/classes/chatterbox',
   roomnames: {},
   usernames: {},
@@ -32,7 +32,6 @@ app.send = function(message) {
     data: JSON.stringify(message),
     contentType: 'application/json',
     success: function (data) {
-      console.dir(message);
       console.log('chatterbox: Message sent');
     },
     error: function (data) {

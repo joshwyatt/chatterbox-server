@@ -29,12 +29,12 @@ exports.handleRequest = function(request, response) {
 
   if( request.method === "OPTIONS" ){
     response.writeHead(statusCode, headers);
-    response.end();
+    response.end(JSON.stringify({}));
   }else if( request.method === "GET" ){
     getChats();
     response.writeHead(statusCode, headers);
     response.write(stringifiedChats);
-    response.end();
+    response.end(JSON.stringify({}));
   }else if( request.method === "POST" ){
     request.on('data', function(chat){
       chat = chat.toString();
@@ -47,10 +47,10 @@ exports.handleRequest = function(request, response) {
     console.log(request.read());
     response.writeHead(statusCode, headers);
     console.log("POSTING UP");
-    response.end();
+    response.end(JSON.stringify({}));
   }
 
-  response.end();
+  response.end(JSON.stringify({}));
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
