@@ -25,6 +25,8 @@ will, unsurprisingly, handle all incoming requests. (ps: 'handleRequest' is in t
 Lastly, we tell the server we made to listen on the given port and IP. */
 
 var server = http.createServer(requestHandle.handleRequest);
+console.log('inside basic-server looking at server: ' + server);
+exports.server = server;
 
 console.log("Listening on http://" + ip + ":" + port);
 server.listen(port, ip);

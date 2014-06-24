@@ -5,9 +5,15 @@
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
-var url = require("url");
 
-var chats = JSON.stringify(require("chats/chats.js").chats);
+var chats;
+var stringifiedChats;
+var url = require("url");
+var getChats = function(){
+  chats = require("chats/chats.js").chats;
+  stringifiedChats = JSON.stringify(chats);
+  console.log("inside getChats: " + chats.results.length);
+};
 
 exports.handleRequest = function(request, response) {
 
@@ -25,16 +31,18 @@ exports.handleRequest = function(request, response) {
     response.writeHead(statusCode, headers);
     response.end();
   }else if( request.method === "GET" ){
+    getChats();
     response.writeHead(statusCode, headers);
-    response.write(chats);
+    response.write(stringifiedChats);
     response.end();
   }else if( request.method === "POST" ){
-    // for(var k in request){
-    //   console.log(k);
-    // }
-    request.on('data', function(something){
-      console.log(something.toString());
-      // console.log(something.toString(16));
+    request.on('data', function(chat){
+      chat = chat.toString();
+      console.log(chat);
+      console.log("chats1: " + chats.results[0].text);
+      console.log("chats length before: " + chats.results.length);
+      chats.addChat(chat);
+      console.log("chats length after" + chats.results.length);
     });
     console.log(request.read());
     response.writeHead(statusCode, headers);
