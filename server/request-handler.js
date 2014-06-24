@@ -34,7 +34,7 @@ exports.handleRequest = function(request, response) {
     getChats();
     response.writeHead(statusCode, headers);
     response.write(stringifiedChats);
-    response.end(JSON.stringify({}));
+    response.end();
   }else if( request.method === "POST" ){
     request.on('data', function(chat){
       chat = chat.toString();

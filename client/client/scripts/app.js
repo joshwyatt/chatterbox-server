@@ -32,6 +32,7 @@ app.send = function(message) {
     data: JSON.stringify(message),
     contentType: 'application/json',
     success: function (data) {
+      console.dir(message);
       console.log('chatterbox: Message sent');
     },
     error: function (data) {
@@ -48,6 +49,7 @@ app.clearMessages = function () {
 app._parseMessages = function(data) {
   var incomingMessages = data.results;
   var stringifiedMessage;
+  console.dir(data.results.length);
   var i = -1;
   for (i = 0; i < incomingMessages.length; i++) {
     var message = incomingMessages[i];
@@ -64,6 +66,7 @@ app._parseMessages = function(data) {
     app.messages.push(message);
     app.addMessage(message);
   }
+  debugger;
   window.troubleObject = message;
   app.lastObjKey = stringifiedMessage;
 };
@@ -82,6 +85,7 @@ app.fetch = function() {
     //   console.dir(data);
     // },
     error: function(data) {
+      console.log('fetch failed');
       console.dir(data);
     }
   });
