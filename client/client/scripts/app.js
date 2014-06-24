@@ -47,15 +47,15 @@ app.clearMessages = function () {
 };
 
 app._parseMessages = function(data) {
+  app.clearMessages();
   var incomingMessages = data.results;
   var stringifiedMessage;
-  console.dir(data.results.length);
-  var i = -1;
+   var i = -1;
   for (i = 0; i < incomingMessages.length; i++) {
     var message = incomingMessages[i];
     stringifiedMessage = JSON.stringify(message);
     if (app.lastObjKey === stringifiedMessage) {
-      break;
+      // break;
     }
   }
   for (var j = i - 1; j >= 0; j--){
@@ -66,7 +66,6 @@ app._parseMessages = function(data) {
     app.messages.push(message);
     app.addMessage(message);
   }
-  debugger;
   window.troubleObject = message;
   app.lastObjKey = stringifiedMessage;
 };
@@ -118,6 +117,7 @@ app.addMessage = function(message) {
 
   //add message to html
   var $chats = $('#chats');
+  $chats.append(message);
   var t = _.template('<div class="chats"><span><%= message.username %>: </span><span><%= message.text %></span></div>');
   message['$el'] = $(t({message: message}));
   $chats.prepend(message['$el']);

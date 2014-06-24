@@ -11,7 +11,6 @@ var stringifiedChats;
 var url = require("url");
 var getChats = function(){
   chats = require("chats/chats.js").chats;
-  stringifiedChats = JSON.stringify(chats);
   console.log("inside getChats: " + chats.results.length);
 };
 
@@ -33,12 +32,11 @@ exports.handleRequest = function(request, response) {
   }else if( request.method === "GET" ){
     getChats();
     response.writeHead(statusCode, headers);
-    response.write(stringifiedChats);
+    response.write(JSON.stringify(chats));
     response.end();
   }else if( request.method === "POST" ){
     request.on('data', function(chat){
-      chat = chat.toString();
-      console.log(chat);
+      chat = JSON.parse(chat);
       console.log("chats1: " + chats.results[0].text);
       console.log("chats length before: " + chats.results.length);
       chats.addChat(chat);
