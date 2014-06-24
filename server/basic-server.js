@@ -1,8 +1,8 @@
 /* Import node's http module: */
 
 var http = require("http");
+var url = require("url");
 var requestHandle = require("./request-handler.js");
-// console.log(handleRequest);
 
 
 /* Every server needs to listen on a port with a unique number. The
@@ -22,7 +22,6 @@ var ip = "127.0.0.1";
 we could have called it anything (myServer, blahblah, etc.). The function we pass it (handleRequest)
 will, unsurprisingly, handle all incoming requests. (ps: 'handleRequest' is in the 'request-handler' file).
 Lastly, we tell the server we made to listen on the given port and IP. */
-//WHERE IS THE REQUEST???? HOW DO I SEND IT IN????
 
 var server = http.createServer(requestHandle.handleRequest);
 
