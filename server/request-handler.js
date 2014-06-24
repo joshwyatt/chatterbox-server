@@ -6,16 +6,43 @@
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
 var url = require("url");
+var fs = require("fs");
 
 exports.handleRequest = function(request, response) {
-  console.log(url.parse(request.url).pathname);
+  var _dirname = "./chats";
 
 
+  var x = 0;
+
+  fs.readFile("./chats/test.html", function(err, data){
+    if( err ){
+      console.log("ERRRRROOOOOOOR!!!!!");
+    }
+    for (var k in data) {
+      console.log(k);
+    }
+  });
+
+  var f = function() {
+    fs.readFile("./chats/test.html", function(err, data){
+      if( err ){
+        console.log("ERRRRROOOOOOOR!!!!!");
+      }
+      return data;
+    });
+  };
+
+
+
+
+
+
+
+  // console.log('x: ' + x);
+  // console.log();
   /* the 'request' argument comes from nodes http module. It includes info about the
   request - such as what URL the browser is requesting. */
 
-  /* Documentation for both request and response can be found at
-   * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
 
   console.log("Serving request type " + request.method + " for url " + request.url);
 
@@ -25,15 +52,14 @@ exports.handleRequest = function(request, response) {
    * below about CORS. */
   var headers = defaultCorsHeaders;
 
-  headers['Content-Type'] = "text/plain";
+  headers["Content-Type"] = "text/plain";
 
-  /* .writeHead() tells our server what HTTP status code to send back */
+  if( request.method === "OPTIONS" ){
+    response.writeHead(statusCode, headers);
+    response.end();
+  }
   response.writeHead(statusCode, headers);
 
-  /* Make sure to always call response.end() - Node will not send
-   * anything back to the client until you do. The string you pass to
-   * response.end() will be the body of the response - i.e. what shows
-   * up in the browser.*/
   response.end("Hello, World!");
 };
 
@@ -45,7 +71,7 @@ exports.handleRequest = function(request, response) {
 
   defaultCorsHeaders = {
   "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, PUT, DELETE",
+  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
   "access-control-allow-headers": "content-type, accept",
   "access-control-max-age": 10 // Seconds.
 };

@@ -70,15 +70,18 @@ app._parseMessages = function(data) {
 
 app.fetch = function() {
   $.ajax({
-    url: this.server,
+    url: this.server + '/test.html',
     type: 'GET',
     contentType: 'application/json',
     dataType: 'JSON',
     data: {
     },
-    success: this._parseMessages,
+    // success: this._parseMessages,
+    success: function(data){
+      console.log('in success');
+    },
     error: function(data) {
-      console.log('err');
+      console.dir(data);
     }
   });
 };
