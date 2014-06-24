@@ -19,7 +19,7 @@ exports.handleRequest = function(request, response) {
    * below about CORS. */
   var headers = defaultCorsHeaders;
 
-  headers["Content-Type"] = "text/plain";
+  headers["Content-Type"] = "application/json";
 
   if( request.method === "OPTIONS" ){
     response.writeHead(statusCode, headers);
@@ -32,6 +32,10 @@ exports.handleRequest = function(request, response) {
     // for(var k in request){
     //   console.log(k);
     // }
+    request.on('data', function(something){
+      console.log(something.toString());
+      // console.log(something.toString(16));
+    });
     console.log(request.read());
     response.writeHead(statusCode, headers);
     console.log("POSTING UP");
