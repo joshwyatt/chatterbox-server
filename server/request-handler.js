@@ -7,41 +7,12 @@
 
 var url = require("url");
 var fs = require("fs");
+var chats = JSON.stringify(require("chats/chats.js").chats);
 
 exports.handleRequest = function(request, response) {
   var _dirname = "./chats";
 
-
-  var x = 0;
-
-  fs.readFile("./chats/test.html", function(err, data){
-    if( err ){
-      console.log("ERRRRROOOOOOOR!!!!!");
-    }
-    for (var k in data) {
-      console.log(k);
-    }
-  });
-
-  var f = function() {
-    fs.readFile("./chats/test.html", function(err, data){
-      if( err ){
-        console.log("ERRRRROOOOOOOR!!!!!");
-      }
-      return data;
-    });
-  };
-
-
-
-
-
-
-
-  // console.log('x: ' + x);
-  // console.log();
-  /* the 'request' argument comes from nodes http module. It includes info about the
-  request - such as what URL the browser is requesting. */
+  console.log(chats[1]);
 
 
   console.log("Serving request type " + request.method + " for url " + request.url);
@@ -60,7 +31,8 @@ exports.handleRequest = function(request, response) {
   }
   response.writeHead(statusCode, headers);
 
-  response.end("Hello, World!");
+  response.write(chats);
+  response.end();
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).

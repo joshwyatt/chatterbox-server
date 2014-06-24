@@ -3,6 +3,7 @@
 var http = require("http");
 var url = require("url");
 var requestHandle = require("./request-handler.js");
+var chats = require("chats/chats.js").chats;
 
 
 /* Every server needs to listen on a port with a unique number. The

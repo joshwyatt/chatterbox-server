@@ -76,10 +76,11 @@ app.fetch = function() {
     dataType: 'JSON',
     data: {
     },
-    // success: this._parseMessages,
-    success: function(data){
-      console.log('in success');
-    },
+    success: this._parseMessages,
+    // success: function(data){
+    //   console.log('in success');
+    //   console.dir(data);
+    // },
     error: function(data) {
       console.dir(data);
     }
