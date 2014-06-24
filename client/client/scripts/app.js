@@ -32,6 +32,7 @@ app.send = function(message) {
     data: JSON.stringify(message),
     contentType: 'application/json',
     success: function (data) {
+      console.dir(message);
       console.log('chatterbox: Message sent');
     },
     error: function (data) {

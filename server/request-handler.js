@@ -6,14 +6,10 @@
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
 var url = require("url");
-var fs = require("fs");
+
 var chats = JSON.stringify(require("chats/chats.js").chats);
 
 exports.handleRequest = function(request, response) {
-  var _dirname = "./chats";
-
-  console.log(chats[1]);
-
 
   console.log("Serving request type " + request.method + " for url " + request.url);
 
@@ -28,10 +24,20 @@ exports.handleRequest = function(request, response) {
   if( request.method === "OPTIONS" ){
     response.writeHead(statusCode, headers);
     response.end();
+  }else if( request.method === "GET" ){
+    response.writeHead(statusCode, headers);
+    response.write(chats);
+    response.end();
+  }else if( request.method === "POST" ){
+    // for(var k in request){
+    //   console.log(k);
+    // }
+    console.log(request.read());
+    response.writeHead(statusCode, headers);
+    console.log("POSTING UP");
+    response.end();
   }
-  response.writeHead(statusCode, headers);
 
-  response.write(chats);
   response.end();
 };
 

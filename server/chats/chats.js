@@ -5,4 +5,4 @@ exports.chats = {
     text: 'Okay I think this is working now',
     username: 'Joshua'
   }]
-}
+};
