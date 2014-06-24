@@ -4,6 +4,7 @@
  * You'll have to figure out a way to export this function from
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
+var results = [];
 
 exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -11,8 +12,29 @@ exports.handleRequest = function(request, response) {
 
   /* Documentation for both request and response can be found at
    * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
-
   console.log("Serving request type " + request.method + " for url " + request.url);
+
+  if (request.method === 'POST') {
+    var body = '';
+
+    request.on('data', function(chunk) {
+      body += chunk;
+    });
+
+    request.setEncoding('utf8');
+
+    request.on('end', function() {
+        var data = JSON.parse(body);
+        results.push(data);
+        console.log(results);
+    });
+
+  } else if (request.method === 'GET') {
+    //response.end(JSON.stringify(bodyStorage));
+    var bodyStorage = {};
+    bodyStorage.results = results;
+    console.log(bodyStorage.results);
+  }
 
   var statusCode = 200;
 
@@ -29,8 +51,10 @@ exports.handleRequest = function(request, response) {
    * anything back to the client until you do. The string you pass to
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
-  response.end("Hello, World!");
+  response.end(JSON.stringify(bodyStorage));
 };
+
+
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
  * This CRUCIAL code allows this server to talk to websites that
@@ -38,7 +62,7 @@ exports.handleRequest = function(request, response) {
  * like file://your/chat/client/index.html, which is considered a
  * different domain.) */
 var defaultCorsHeaders = {
-  "access-control-allow-origin": "./Users/HR10/Code/foresttoney/2014-06-chatterbox-server/client/index.html",
+  "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
   "access-control-allow-headers": "content-type, accept",
   "access-control-max-age": 10 // Seconds.
